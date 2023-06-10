@@ -31,8 +31,9 @@ function App() {
   return (
     <div className="App">
       <Header/>{/* Heaer For the title*/}
-      <Content items = {items} setItems = {setItems} Tog = {Tog} setCount={setCount}/>{/* To display content*/}
       <Footer count = {count} setCount = {setCount} items = {items} setItems = {setItems}/>{/* TO add or reset the tasks*/}
+      <Content items = {items} setItems = {setItems} Tog = {Tog} setCount={setCount}/>{/* To display content*/}
+      
     </div>
   );
 }

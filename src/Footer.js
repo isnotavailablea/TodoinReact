@@ -3,7 +3,8 @@ import { SlPlus } from 'react-icons/sl';
 import { GrPowerReset } from 'react-icons/gr'
 function Footer({count , setCount , items , setItems}) {
   const [showadd , setShowadd] = useState(false);{/* To check if we would want to add or not*/}
-  const [newTask , setNewTask] = useState("ads");{/* To store the input of the new tasks*/}
+  const [rest,setRest] = useState(false);
+  const [newTask , setNewTask] = useState("");{/* To store the input of the new tasks*/}
   const addTolist = ()=>{
     setShowadd(!showadd);{/* To toggle add */}
   }
@@ -16,8 +17,10 @@ function Footer({count , setCount , items , setItems}) {
     })
     setCount(count + 1);
     setItems(newList);
+    setNewTask("");
     localStorage.setItem('Items',JSON.stringify(newList));{/* Updating the local storage to add List*/}
     localStorage.setItem('cnt',count + 1);{/* Updating the local storage for cnt of elements remainging*/}
+    setRest(true);
   }
   return (
     <div>
@@ -29,7 +32,12 @@ function Footer({count , setCount , items , setItems}) {
       <GrPowerReset className='items' style={{color : 'hotpink'}} onClick={()=>{setItems([]); setCount(0)}}/>
       </div>
       {showadd && <div className='frm'>
-          <input placeholder='enter you task here' onChange={(event) => {setNewTask(event.target.value)}}/>
+          <input  onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            addTask();
+                        }
+                    }} placeholder='enter you task here'
+                    onChange={(event) => {setNewTask(event.target.value); setRest(false)}} value = {rest ? "" : newTask}/>
            <button onClick = {addTask}>Submit</button>
       </div>}
     </div>
